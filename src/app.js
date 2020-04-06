@@ -51,4 +51,23 @@ app.delete('/repositories/:id', (req, res) => {
   res.status(204).send()
 })
 
+app.post('/repositories/:id/like', (req, res) => {
+  const { id } = req.params
+
+  const repoIndex = repositories.findIndex(repo => repo.id === id)
+
+  if (repoIndex < 0) {
+    res.status(400).json({ error: 'Repository not found' })
+  }
+
+  const updatedRepo = {
+    ...repositories[repoIndex],
+    likes: repositories[repoIndex].likes + 1,
+  }
+
+  repositories[repoIndex] = updatedRepo
+
+  res.status(201).json(updatedRepo)
+})
+
 module.exports = app
