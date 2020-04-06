@@ -32,6 +32,8 @@ app.put('/repositories/:id', (req, res) => {
 
   const updatedRepo = { ...repositories[repoIndex], ...req.body }
 
+  repositories[repoIndex] = updatedRepo
+
   res.status(201).json(updatedRepo)
 })
 
