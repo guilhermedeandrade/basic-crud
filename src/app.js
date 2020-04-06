@@ -17,4 +17,8 @@ app.post("/repositories", (req, res) => {
   res.status(201).send(newRepo)
 });
 
+app.get("/repositories", (_, res) => {
+  res.send(repositories)
+});
+
 module.exports = app;
