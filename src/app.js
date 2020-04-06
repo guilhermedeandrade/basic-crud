@@ -23,6 +23,7 @@ app.get('/repositories', (_, res) => {
 
 app.put('/repositories/:id', (req, res) => {
   const { id } = req.params
+  const { url, title, techs } = req.body
 
   const repoIndex = repositories.findIndex(repo => repo.id === id)
 
@@ -30,7 +31,12 @@ app.put('/repositories/:id', (req, res) => {
     res.status(400).json({ error: 'Repository not found' })
   }
 
-  const updatedRepo = { ...repositories[repoIndex], ...req.body }
+  const updatedRepo = {
+    ...repositories[repoIndex],
+    url,
+    title,
+    techs,
+  }
 
   repositories[repoIndex] = updatedRepo
 
