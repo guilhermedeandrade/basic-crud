@@ -37,4 +37,18 @@ app.put('/repositories/:id', (req, res) => {
   res.status(201).json(updatedRepo)
 })
 
+app.delete('/repositories/:id', (req, res) => {
+  const { id } = req.params
+
+  const repoIndex = repositories.findIndex(repo => repo.id === id)
+
+  if (repoIndex < 0) {
+    res.status(400).json({ error: 'Repository not found' })
+  }
+
+  repositories.splice(repoIndex, 1)
+
+  res.status(204).send()
+})
+
 module.exports = app
