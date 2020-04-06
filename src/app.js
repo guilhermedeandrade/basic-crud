@@ -14,11 +14,11 @@ app.post('/repositories', (req, res) => {
 
   repositories.push(newRepo)
 
-  res.status(201).send(newRepo)
+  res.status(201).json(newRepo)
 })
 
 app.get('/repositories', (_, res) => {
-  res.send(repositories)
+  res.json(repositories)
 })
 
 app.put('/repositories/:id', (req, res) => {
@@ -27,12 +27,12 @@ app.put('/repositories/:id', (req, res) => {
   const repoIndex = repositories.findIndex(repo => repo.id === id)
 
   if (repoIndex < 0) {
-    res.status(400)
+    res.status(400).json({ error: 'Repository not found' })
   }
 
   const updatedRepo = { ...repositories[repoIndex], ...req.body }
 
-  res.status(201).send(updatedRepo)
+  res.status(201).json(updatedRepo)
 })
 
 module.exports = app
